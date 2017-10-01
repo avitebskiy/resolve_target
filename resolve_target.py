@@ -22,9 +22,9 @@
 
 from __future__ import print_function
 
-__all__=["resolve_target"]
-
 import argparse, json, sys
+
+__all__=["resolve_target"]
 
 if sys.version_info.major < 3:
     from itertools import ifilter, imap
@@ -38,14 +38,16 @@ else:
     from urllib.request import urlopen, HTTPError, URLError
     from http.server import BaseHTTPRequestHandler
     from textwrap import indent
-    ifilter=filter
-    imap=map
+    ifilter = filter
+    imap = map
+
 
 def get_http_status(code):
     if code in BaseHTTPRequestHandler.responses:
         return BaseHTTPRequestHandler.responses[code][0]
     else:
         return "Unknown Response"
+
 
 def resolve_target(url):
     """
