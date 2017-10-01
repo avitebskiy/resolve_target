@@ -90,12 +90,12 @@ The `json` option prints the code, message, and URL in JSON format without forma
 ]
 ```
 
-## Reading URLs From a File
+### Reading URLs From a File
 
 If a text file is redirected into the `resolve_target` utility, `resolve_target` will read the URLs from that file. The
 file should have the URLs listed one per line.
 
-### Example
+#### Example
 
 Contents of **urls.txt**:
 ```
@@ -120,3 +120,24 @@ Usage:
 ]
 
 ```
+
+### Non-HTTP Errors
+
+If a URL could not be reached, `resolve_target` will output the error code (if applicable), the error message, and the
+requested URL. If there's no relevant error code, the error code will be set to -1.
+
+#### Examples
+
+```
+> resolve_target.py invalid_url
+-1
+unknown url type: invalid_url
+invalid_url
+```
+
+ ```
+> resolve_target.py http://www.nonexistentlocation.com
+-2
+Name or service not known
+http://www.nonexistentlocation.com
+ ```
