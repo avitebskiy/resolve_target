@@ -13,7 +13,7 @@ and the error message. The input URL will be echoed in the output in this case.
 
 ## Command Line Usage
 
-`resolve_target.py [-h] [-e] [-f {lines,csv,json,pretty-json}] [url [url ...]]`
+`resolve_target [-h] [-e] [-f {lines,csv,json,pretty-json}] [url [url ...]]`
 
 ### Positional Arguments
 
@@ -75,7 +75,7 @@ The `json` option prints the code, message, and URL in JSON format without forma
 #### pretty-json
 
 ```
-> resolve_target.py --format=pretty-json http://bit.ly/1IvcuW5 https://bit.ly/2x5rRbk
+> resolve_target --format=pretty-json http://bit.ly/1IvcuW5 https://bit.ly/2x5rRbk
 [
     {
         "code": 200, 
@@ -129,14 +129,14 @@ requested URL. If there's no relevant error code, the error code will be set to 
 #### Examples
 
 ```
-> resolve_target.py invalid_url
+> resolve_target invalid_url
 -1
 unknown url type: invalid_url
 invalid_url
 ```
 
- ```
-> resolve_target.py http://www.nonexistentlocation.com
+```
+> resolve_target http://www.nonexistentlocation.com
 -2
 Name or service not known
 http://www.nonexistentlocation.com
