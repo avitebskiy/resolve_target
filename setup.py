@@ -10,7 +10,7 @@ setup(
     author_email='aleksey.vitebskiy@gmail.com',
     packages=['resolve_target'],
     url='https://github.com/avitebskiy/resolve_target',
-    download_url='https://github.com/avitebskiy/resolve_target/archive/v1.0.tar.gz',
+    download_url='https://github.com/avitebskiy/resolve_target/archive/1.0.0.tar.gz',
     keywords=['http', 'www', 'developer', 'redirect', 'web', 'hostname'],
     classifiers=[
         'Development Status :: 5 - Production/Stable',
