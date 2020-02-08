@@ -22,22 +22,26 @@
 
 from __future__ import print_function
 
-import argparse, json, sys
+import argparse
+import json
+import sys
 
-__all__=["resolve_target"]
+__all__ = ["resolve_target", "main"]
 
 if sys.version_info.major < 3:
     from itertools import ifilter, imap
     from urllib2 import urlopen, HTTPError, URLError
     from BaseHTTPServer import BaseHTTPRequestHandler
 
+
     def indent(text, amount, ch=' '):
         padding = amount * ch
-        return ''.join(padding+line for line in text.splitlines(True))
+        return ''.join(padding + line for line in text.splitlines(True))
 else:
     from urllib.request import urlopen, HTTPError, URLError
     from http.server import BaseHTTPRequestHandler
     from textwrap import indent
+
     ifilter = filter
     imap = map
 
@@ -92,7 +96,7 @@ def print_json(results, pretty):
     args = {}
     endl = ""
     if pretty:
-        args = { "indent": 4, "sort_keys": True, "separators": (", ", ": ") }
+        args = {"indent": 4, "sort_keys": True, "separators": (", ", ": ")}
         endl = "\n"
 
     print("[", end=endl)
@@ -126,6 +130,7 @@ def print_results(results, format):
     elif format == "pretty-json":
         print_json(results, True)
 
+
 EPILOG = '''
 format options:
   lines       print the code, message, and url each on its own line. A blank line 
@@ -139,7 +144,7 @@ reading URLs from a file:
   
 '''
 
-EXAMPLES='''
+EXAMPLES = '''
 usage examples:
 
 ................................................................................
@@ -202,18 +207,19 @@ http://www.nonexistentlocation.com
 
 '''
 
-if __name__ == "__main__":
+
+def main():
     parser = argparse.ArgumentParser(
         formatter_class=argparse.RawDescriptionHelpFormatter,
         description="Contacts URL(s) and resolves the redirection target(s)",
         epilog=EPILOG
     )
     parser.add_argument("-e", "--examples", action="store_true",
-        help="print additional usage examples")
+                        help="print additional usage examples")
     parser.add_argument("urls", metavar="url", type=str, nargs="*",
-        help="the URL(s) to resolve.")
+                        help="the URL(s) to resolve.")
     parser.add_argument("-f", "--format", choices=["lines", "csv", "json", "pretty-json"], default="lines",
-        help="the output format (default: %(default)s)")
+                        help="the output format (default: %(default)s)")
 
     args = parser.parse_args()
     if args.examples:
@@ -223,7 +229,7 @@ if __name__ == "__main__":
     urls = args.urls
     if not len(urls) and not sys.stdin.isatty():
         urls = sys.stdin.readlines()
-    
+
     if not len(urls):
         parser.print_usage()
         print("No URLs were supplied", file=sys.stderr)
@@ -231,3 +237,7 @@ if __name__ == "__main__":
 
     results = imap(resolve_target, ifilter(bool, imap(str.strip, urls)))
     print_results(results, args.format)
+
+
+if __name__ == "__main__":
+    main()
